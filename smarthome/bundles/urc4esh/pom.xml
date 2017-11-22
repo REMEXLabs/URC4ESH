@@ -1,0 +1,86 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <properties>
+    <esh.java.version>1.8</esh.java.version>
+    <maven.compiler.source>${esh.java.version}</maven.compiler.source>
+    <maven.compiler.target>${esh.java.version}</maven.compiler.target>
+    <maven.compiler.compilerVersion>${esh.java.version}</maven.compiler.compilerVersion>
+    <tycho-version>1.0.0</tycho-version>
+    <tycho-groupid>org.eclipse.tycho</tycho-groupid>
+    <xtext-version>2.12.0</xtext-version>
+    <karaf.version>4.0.3</karaf.version>
+    <ds-annotations.version>1.2.10</ds-annotations.version>
+    <jdt-annotations.version>2.1.0</jdt-annotations.version>
+    <build.helper.maven.plugin.version>1.8</build.helper.maven.plugin.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <sat.version>0.3.0</sat.version>
+  </properties>
+
+
+  <parent>
+    <groupId>org.eclipse.smarthome</groupId>
+    <artifactId>bundles</artifactId>
+    <version>0.9.0-SNAPSHOT</version>
+  </parent>
+  <groupId>org.eclipse.smarthome.bundles</groupId>
+  <artifactId>urc4esh</artifactId>
+  <packaging>pom</packaging>
+
+
+
+<modules>
+<module>org.eclipse.smarthome.urc4esh.api</module>
+<module>org.eclipse.smarthome.urc4esh.communicationmanager</module>
+<module>org.eclipse.smarthome.urc4esh.contextmanager</module>
+<!--<module>org.eclipse.smarthome.urc4esh.ui</module>
+<module>org.eclipse.smarthome.urc4esh.urc4eshdashboard</module>-->
+</modules>
+
+
+
+<build>
+<plugins>
+
+      <plugin>
+        <groupId>${tycho-groupid}</groupId>
+        <artifactId>tycho-maven-plugin</artifactId>
+        <version>${tycho-version}</version>
+        <extensions>true</extensions>
+      </plugin>
+      <plugin>
+        <groupId>${tycho-groupid}</groupId>
+        <artifactId>target-platform-configuration</artifactId>
+        <configuration>
+          <environments>
+            <environment>
+              <os>linux</os>
+              <ws>gtk</ws>
+              <arch>x86</arch>
+            </environment>
+            <environment>
+              <os>linux</os>
+              <ws>gtk</ws>
+              <arch>x86_64</arch>
+            </environment>
+            <environment>
+              <os>win32</os>
+              <ws>win32</ws>
+              <arch>x86</arch>
+            </environment>
+            <environment>
+              <os>win32</os>
+              <ws>win32</ws>
+              <arch>x86_64</arch>
+            </environment>
+            <environment>
+              <os>macosx</os>
+              <ws>cocoa</ws>
+              <arch>x86_64</arch>
+            </environment>
+          </environments>
+        </configuration>
+      </plugin>
+</plugins>
+</build>
+</project>
