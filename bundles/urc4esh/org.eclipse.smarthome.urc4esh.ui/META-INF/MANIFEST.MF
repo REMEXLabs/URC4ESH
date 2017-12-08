@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Eclipse SmartHome URC4ESH UI
+Bundle-SymbolicName: org.eclipse.smarthome.urc4esh.ui
+Bundle-Version: 0.9.0.qualifier
+Bundle-Vendor: Eclipse.org/SmartHome
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Web-ContextPath: static-files
+Webapp-Context: static-files
+Bundle-License: http://www.eclipse.org/legal/epl-v10.html
