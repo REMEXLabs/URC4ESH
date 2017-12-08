@@ -15,10 +15,12 @@
 
   <packaging>pom</packaging>
 
-  <modules>
-  <module>org.eclipse.smarthome.urc4esh.api</module>
-    <module>org.eclipse.smarthome.urc4esh.contextmanager</module>
-<module>org.eclipse.smarthome.urc4esh.ui</module>
-  </modules>
+<modules>
+<module>org.eclipse.smarthome.urc4esh.api</module>
+<module>org.eclipse.smarthome.urc4esh.communicationmanager</module>
+<module>org.eclipse.smarthome.urc4esh.contextmanager</module>
+<!--<module>org.eclipse.smarthome.urc4esh.ui</module>
+<module>org.eclipse.smarthome.urc4esh.urc4eshdashboard</module>-->
+</modules>
 
 </project>
