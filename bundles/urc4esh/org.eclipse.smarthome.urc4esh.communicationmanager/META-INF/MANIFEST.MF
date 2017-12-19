@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Communicationmanager
+Bundle-SymbolicName: org.eclipse.smarthome.urc4esh.communicationmanager
+Bundle-Version: 0.9.0.qualifier
+Import Package: org.eclipse.smarthome.urc4esh.api
