@@ -3,6 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Eclipse SmartHome URC4ESH UI
 Bundle-SymbolicName: org.eclipse.smarthome.urc4esh.ui
 Bundle-Version: 0.9.0.qualifier
+Web-ContextPath: static-files
 Bundle-Vendor: Eclipse.org/SmartHome
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Service-Component: OSGI-INF/*.xml
@@ -41,4 +42,5 @@ Import-Package: javax.imageio,
   org.osgi.service.http,
   org.osgi.service.component.annotations;resolution:=optional,
   org.slf4j
+Webapp-Context: static-files
 Bundle-License: http://www.eclipse.org/legal/epl-v10.html
