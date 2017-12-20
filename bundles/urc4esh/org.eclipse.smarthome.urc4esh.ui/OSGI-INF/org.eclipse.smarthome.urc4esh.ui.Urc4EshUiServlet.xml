@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="org.eclipse.smarthome.urc4esh.ui.Urc4EshUiServlet">
+   <implementation class="org.eclipse.smarthome.urc4esh.ui.Urc4EshUiServlet"/>
+</scr:component>
