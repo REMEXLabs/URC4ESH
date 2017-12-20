@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Api
+Bundle-SymbolicName: org.eclipse.smarthome.urc4esh.api
+Bundle-Vendor: hdm-stuttgart.de
+Bundle-Version: 1.0.0.qualifier
+Export Package: org.eclipse.smarthome.urc4esh.api

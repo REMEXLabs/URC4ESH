@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Contextmanager
+Bundle-SymbolicName: org.eclipse.smarthome.urc4esh.contextmanager
+Bundle-Version: 0.9.0.qualifier
