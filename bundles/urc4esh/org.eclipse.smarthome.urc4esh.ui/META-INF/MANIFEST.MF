@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Eclipse SmartHome URC4ESH UI
 Bundle-SymbolicName: org.eclipse.smarthome.urc4esh.ui
 Bundle-Version: 0.9.0.qualifier
-Web-ContextPath: static-files
+Web-ContextPath: urc4esh
 Bundle-Vendor: Eclipse.org/SmartHome
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Service-Component: OSGI-INF/*.xml
