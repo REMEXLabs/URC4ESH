@@ -24,3 +24,7 @@ bundles/storage/org.eclipse.smarthome.storage.mapdb.test/userdata/mapdb/storage.
 features/karaf/*/src/main/history
 
 Californium.properties
+.project
+.classpath
+.project
+/bundles/urc4esh/org.eclipse.smarthome.urc4esh.rest/.settings
