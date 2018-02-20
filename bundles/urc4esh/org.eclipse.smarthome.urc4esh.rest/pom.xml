@@ -8,13 +8,13 @@
   </parent>
 
   <properties>
-    <bundle.symbolicName>org.eclipse.smarthome.io.rest.urc</bundle.symbolicName>
-    <bundle.namespace>org.eclipse.smarthome.io.rest.urc</bundle.namespace>
+    <bundle.symbolicName>org.eclipse.smarthome.urc4esh.rest</bundle.symbolicName>
+    <bundle.namespace>org.eclipse.smarthome.urc4esh.rest</bundle.namespace>
   </properties>
 
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.eclipse.smarthome.io</groupId>
-  <artifactId>org.eclipse.smarthome.io.rest.urc</artifactId>
+  <groupId>org.eclipse.smarthome.urc4esh</groupId>
+  <artifactId>org.eclipse.smarthome.urc4esh.rest</artifactId>
 
   <name>Eclipse SmartHome URC REST Interface</name>
 
