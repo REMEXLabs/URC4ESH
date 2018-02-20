@@ -3,7 +3,7 @@
  */
 
 $('btnLogIn').click( function(){
-   var data;
+   var data= {};
    data.username = $.("iptUsername").getValue();
    data.password = $.("iptPassword").getValue();
    data = JSON.stringify(data);
