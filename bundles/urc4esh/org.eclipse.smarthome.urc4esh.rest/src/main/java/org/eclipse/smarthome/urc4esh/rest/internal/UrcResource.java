@@ -7,12 +7,13 @@
  */
 package org.eclipse.smarthome.urc4esh.rest.internal;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import javax.annotation.security.RolesAllowed;
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -22,7 +23,7 @@ import javax.ws.rs.core.UriInfo;
 import org.eclipse.smarthome.core.auth.Role;
 import org.eclipse.smarthome.io.rest.RESTResource;
 import org.eclipse.smarthome.urc4esh.api.ContextManager;
-import org.eclipse.smarthome.urc4esh.api.contextdefinitions.EnvironmentContextDefinition;
+import org.eclipse.smarthome.urc4esh.api.UiList;
 import org.eclipse.smarthome.urc4esh.rest.REST_API;
 import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
@@ -30,7 +31,6 @@ import org.slf4j.LoggerFactory;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
@@ -61,7 +61,7 @@ public class UrcResource implements RESTResource { // , SitemapSubscriptionCallb
     UriInfo uriInfo;
 
     @Context
-    private HttpServletResponse response;
+    // private HttpServletResponse response;
 
     @Reference
     private ContextManager contextManager;
@@ -77,9 +77,9 @@ public class UrcResource implements RESTResource { // , SitemapSubscriptionCallb
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @ApiOperation(value = "Get all available sitemaps.", response = SitemapDTO.class, responseContainer = "Collection")
+    @ApiOperation(value = "Get all available sitemaps.", response = String.class, responseContainer = "Collection")
     @ApiResponses(value = { @ApiResponse(code = 200, message = "OK") })
-    public Response getSitemaps() {
+    public Response getHelloWorld() {
         logger.debug("Received HTTP GET request at '{}'", uriInfo.getPath());
         Object responseObject = new String("hello world");
         return Response.ok(responseObject).build();
@@ -89,28 +89,39 @@ public class UrcResource implements RESTResource { // , SitemapSubscriptionCallb
     @Produces(MediaType.APPLICATION_JSON)
     @Path(REST_API.UI_LIST)
     public Response requestUiList() {
-        communicationManager.getListing();
 
         UiList uiList;
         Object responseObject = new String("hello world");
         return Response.ok(responseObject).build();
     }
 
-    }
+    /*
+     * @GET
+     *
+     * @Path("/{contextId: [a-zA-Z_0-9]*}")
+     * // @Path(REST_API.USERCONTEXT_WITH_ID)
+     *
+     * @ApiOperation(value = "Get all available sitemaps.", response = SitemapDTO.class, responseContainer =
+     * "Collection")
+     *
+     * @ApiResponses(value = { @ApiResponse(code = 200, message = "OK") })
+     * public Response getEnvironmentContexts(
+     *
+     * @PathParam("contextId") @ApiParam(value = "context Id", required = true) String contextId) {
+     * EnvironmentContextDefinition environmentContextDefinition = contextManager
+     * .getEnvironmentContextDefinition(contextId);
+     * if (environmentContextDefinition == null) {
+     * return Response.noContent().build();
+     * }s
+     * return Response.ok(environmentContextDefinition).build();
+     * }
+     */
+    @POST
+    @Path(REST_API.LOG_IN)
+    public Response login() throws URISyntaxException {
 
-    @GET
-    @Path("/{contextId: [a-zA-Z_0-9]*}")
-    // @Path(REST_API.USERCONTEXT_WITH_ID)
-    @ApiOperation(value = "Get all available sitemaps.", response = SitemapDTO.class, responseContainer = "Collection")
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK") })
-    public Response getEnvironmentContexts(
-            @PathParam("contextId") @ApiParam(value = "context Id", required = true) String contextId) {
-        EnvironmentContextDefinition environmentContextDefinition = contextManager
-                .getEnvironmentContextDefinition(contextId);
-        if (environmentContextDefinition == null) {
-            return Response.noContent().build();
-        }
-        return Response.ok(environmentContextDefinition).build();
+        return Response.seeOther(new URI("/urc4esh")).build();
+
     }
 
 }

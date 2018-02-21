@@ -1,6 +1,8 @@
 package org.eclipse.smarthome.urc4esh.rest;
 
 public class REST_API {
-    public static final String USERCONTEXT_WITH_ID = null;
-    public final String ENVIRONMENT_cCONTEXT_DEFINITION = "environment-context-definition";
+
+    public static final String UI_LIST = "urc/uiList";
+    public static final String LOG_IN = "urc4esh/login";
+
 }
