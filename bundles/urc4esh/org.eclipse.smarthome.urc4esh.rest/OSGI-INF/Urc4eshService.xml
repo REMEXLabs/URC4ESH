@@ -8,8 +8,8 @@
     http://www.eclipse.org/legal/epl-v10.html
 
 -->
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="org.eclipse.smarthome.urc4esh.rest">
-   <implementation class="org.eclipse.smarthome.urc4esh.rest.internal.UrcResource"/>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="org.eclipse.smarthome.urc4esh.rest.Urc4eshService">
+   <implementation class="org.eclipse.smarthome.urc4esh.rest.internal.Urc4eshService"/>
    <service>
             <provide interface="org.eclipse.smarthome.io.rest.RESTResource"/>
    </service>

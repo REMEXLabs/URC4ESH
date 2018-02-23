@@ -25,8 +25,7 @@ import org.eclipse.smarthome.core.auth.Role;
 import org.eclipse.smarthome.io.rest.RESTResource;
 import org.eclipse.smarthome.urc4esh.api.CommunicationManager;
 import org.eclipse.smarthome.urc4esh.api.ContextManager;
-import org.eclipse.smarthome.urc4esh.api.UiList;
-import org.eclipse.smarthome.urc4esh.rest.REST_API;
+import org.openape.client.OpenAPEClient;
 import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,14 +44,14 @@ import io.swagger.annotations.ApiResponses;
  *
  *
  */
-@Path(UrcResource.PATH_URC)
+@Path(Urc4eshService.PATH_URC)
 @RolesAllowed({ Role.USER, Role.ADMIN })
-@Api(value = UrcResource.PATH_URC)
-public class UrcResource implements RESTResource {
+@Api(value = Urc4eshService.PATH_URC)
+public class Urc4eshService implements RESTResource {
 
-    private final Logger logger = LoggerFactory.getLogger(UrcResource.class);
+    private final Logger logger = LoggerFactory.getLogger(Urc4eshService.class);
 
-    public static final String PATH_URC = "urc";
+    public static final String PATH_URC = "urc4esh";
     private static final String SEGMENT_EVENTS = "events";
     private static final String X_ACCEL_BUFFERING_HEADER = "X-Accel-Buffering";
 
@@ -86,14 +85,38 @@ public class UrcResource implements RESTResource {
         return Response.ok(responseObject).build();
     }
 
+    /*
+     * @GET
+     *
+     * @Path("/{contextId: [a-zA-Z_0-9]*}")
+     * // @Path(REST_API.USERCONTEXT_WITH_ID)
+     *
+     * @ApiOperation(value = "Get all available sitemaps.", response = SitemapDTO.class, responseContainer =
+     * "Collection")
+     *
+     * @ApiResponses(value = { @ApiResponse(code = 200, message = "OK") })
+     * public Response getEnvironmentContexts(
+     *
+     * @PathParam("contextId") @ApiParam(value = "context Id", required = true) String contextId) {
+     * EnvironmentContextDefinition environmentContextDefinition = contextManager
+     * .getEnvironmentContextDefinition(contextId);
+     * if (environmentContextDefinition == null) {
+     * return Response.noContent().build();
+     * }s
+     * return Response.ok(environmentContextDefinition).build();
+     * }
+     */
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path(REST_API.UI_LIST)
-    public Response requestUiList() {
+    @Path(Urc4eshRestAapi.LOG_IN)
+    public Response login(@QueryParam("username") String username, @QueryParam("password") String password)
+            throws URISyntaxException {
 
-        UiList uiList;
-        Object responseObject = new String("hello world");
-        return Response.ok(responseObject).build();
+        OpenAPEClient client = CommunicationManager.getClient(username, password);
+
+        return Response.seeOther(new URI("/urc4esh/PickAnInterface.html")).header("session", username) // todo better
+                                                                                                       // session id
+                .build();
+
     }
 
 }
