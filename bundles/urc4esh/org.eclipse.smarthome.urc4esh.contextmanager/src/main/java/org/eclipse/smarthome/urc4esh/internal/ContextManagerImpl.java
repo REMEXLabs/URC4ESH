@@ -1,5 +1,7 @@
 package org.eclipse.smarthome.urc4esh.internal;
 
+import org.eclipse.smarthome.urc4esh.api.EquipmentContextDefinition;
+
 public class ContextManagerImpl {
 
     public String createEquipmentcontextDefinition(EquipmentContextDefinition equipmentContextDefinition) {

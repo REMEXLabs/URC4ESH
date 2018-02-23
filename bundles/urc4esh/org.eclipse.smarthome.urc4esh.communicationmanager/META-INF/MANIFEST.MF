@@ -4,4 +4,4 @@ Bundle-Name: Communicationmanager
 Bundle-SymbolicName: org.eclipse.smarthome.urc4esh.communicationmanager
 Bundle-Version: 0.9.0.qualifier
 Bundle-ClassPath: ., lib/openape-client.jar
-Import Package: org.eclipse.smarthome.urc4esh.api
+Import-Package: org.eclipse.smarthome.urc4esh.api
