@@ -9,23 +9,28 @@ package org.eclipse.smarthome.urc4esh.rest.internal;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashMap;
 
 import javax.annotation.security.RolesAllowed;
+import javax.ws.rs.CookieParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import org.eclipse.smarthome.core.auth.Role;
 import org.eclipse.smarthome.io.rest.RESTResource;
 import org.eclipse.smarthome.urc4esh.api.CommunicationManager;
+import org.eclipse.smarthome.urc4esh.api.Communicator;
 import org.eclipse.smarthome.urc4esh.api.ContextManager;
-import org.openape.client.OpenAPEClient;
+import org.osgi.service.component.ComponentContext;
 import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,10 +57,9 @@ public class Urc4eshService implements RESTResource {
     private final Logger logger = LoggerFactory.getLogger(Urc4eshService.class);
 
     public static final String PATH_URC = "urc4esh";
-    private static final String SEGMENT_EVENTS = "events";
-    private static final String X_ACCEL_BUFFERING_HEADER = "X-Accel-Buffering";
-
     private static final long TIMEOUT_IN_MS = 30000;
+
+    CommunicationManager communicationManager;
 
     @Context
     UriInfo uriInfo;
@@ -66,9 +70,12 @@ public class Urc4eshService implements RESTResource {
     @Reference
     private ContextManager contextManager;
 
+    private HashMap<String, Communicator> clientMap;
+
     protected void activate() {
 
-        System.out.println("Hello World");
+        System.out.println("Urc4esh Service has started");
+        clientMap = new HashMap<String, Communicator>();
     }
 
     protected void deactivate() {
@@ -81,7 +88,7 @@ public class Urc4eshService implements RESTResource {
     @ApiResponses(value = { @ApiResponse(code = 200, message = "OK") })
     public Response getHelloWorld() {
         logger.debug("Received HTTP GET request at '{}'", uriInfo.getPath());
-        Object responseObject = new String("hello world");
+        Object responseObject = new String("hello URC4esh world");
         return Response.ok(responseObject).build();
     }
 
@@ -111,12 +118,42 @@ public class Urc4eshService implements RESTResource {
     public Response login(@QueryParam("username") String username, @QueryParam("password") String password)
             throws URISyntaxException {
 
-        OpenAPEClient client = CommunicationManager.getClient(username, password);
+        Communicator client = CommunicationManager.getClient(username, password);
+        if (client != null) {
 
-        return Response.seeOther(new URI("/urc4esh/PickAnInterface.html")).header("session", username) // todo better
-                                                                                                       // session id
-                .build();
+            String sessionId = username;
 
+            clientMap.put(sessionId, client);
+            NewCookie sessionCookie = new NewCookie("session", sessionId);
+            return Response.seeOther(new URI("/urc4esh/PickAnInterface" + ".html")).cookie(sessionCookie)
+
+                    .build();
+        }
+        {
+            return Response.status(403).build();
+        }
+    }
+
+    @POST
+    @Path(Urc4eshRestAapi.UiList)
+    public Response getUiList(@HeaderParam("session") String sessionId, @CookieParam("session") String cookieSession) {
+        Object responseObject = new String("your Session: " + sessionId + "\n your cooky:" + cookieSession);
+        return Response.ok(responseObject).build();
+    }
+
+    public void setCommunicationManager(CommunicationManager communicationManager) {
+        logger.info("lusm setCommunicationManager");
+        this.communicationManager = communicationManager;
+    }
+
+    public void removeCommunicationManager(CommunicationManager communicationManager) {
+        this.communicationManager = null;
+    }
+
+    protected void activate(ComponentContext context) {
+        Object[] contactRepositories = context.locateServices("bla");
+        logger.info("lusm Reference: " + contactRepositories);
+        logger.info("lusm: " + contactRepositories.length);
     }
 
 }

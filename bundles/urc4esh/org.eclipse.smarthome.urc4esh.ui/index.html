@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Welcome to URC4ESH</title>
 <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
-<script src="http://localhost:4040/js/login.js"> </script> 
+<!--  --><script src="http://localhost:4040/js/login.js"> </script>--> 
 </head>
 <body>
 <h1>Welcome to URC4ESH</h1>
@@ -14,11 +14,11 @@ URC4ESH provides you the possibility to control your smart home with user interf
 <div id="divLogIn">
 <H2>Log in</H2>
 <p>Please use your OpenAPE account to log in. If you do not have an OpenAPE account yet please read the notes in the next paragraph. </p>
-<form action="../rest/urc/login" method="POST" />
+<form action="../rest/urc4esh/login" method="POST" />
 <label for="iptUsername">User name:</label>
-<input id="iptUsername">
+<input id="iptUsername" name="username">
 <label for="iptPassword">Password:</label>
-<input id="iptPassword" type="password">
+<input id="iptPassword" type="password" name="password">
 <button id="btnLogIn" type="submit">Log in</button> 
 </form>
 </div>
