@@ -1,7 +1,8 @@
 /**
  * 
  */
-var EshCommunicator = {
+var 
+EshCommunicator = {
     openHABServer : "http://localhost:8080/",
 
     getAllThings : function(callback) {
@@ -9,7 +10,7 @@ this.getList('things', callback );
             },
 
     getAllItems : function(callback){
-return getList('items',callback);
+return this.getList('items',callback);
 },
 
 

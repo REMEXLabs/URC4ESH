@@ -2,6 +2,18 @@
  * 
  */
 var ViewController = {
+addItems : function(htmlElement){
+    
+EshCommunicator.getAllItems(function(itemList){
+console.log("Found: " + itemList.length );
+    itemList.forEach(function(item){
+        if (item.type !== "Group" ){
+        let td = ViewController.createTableRow(item.name, item.name, item.label);
+    document.getElementById(htmlElement).appendChild(td);
+        }
+});  // for each
+}); // getAllItems callback
+},
 
     addThings : function(htmlElement) {
 // $(htmlElement).append($( "<tr> <td> Thing UID </td></tr>") );
@@ -9,38 +21,10 @@ var ViewController = {
 
 //console.log("EL: " +  $(htmlElement) )
 //$("body").append( "<p> Hello World </p>" );
-thingList.forEach(function  (item,index, array) {
-console.log("tabellenaufbau");
-/*
-var mytbl = document.getElementById('tableEquipmentContext');
-mytbl.appendChild(document.createElement('tr'));
-*/
-let tr  = document.createElement('tr');
-
-//tr.appendChild( $('<td/>').append( $('<input type="checkbox"/>')  ) );
-
-let td_checkbox = document.createElement('td');
-let checkbox = document.createElement('input');
-checkbox.setAttribute('id', 'cbx' + item.label);
-checkbox.setAttribute('type', 'checkbox');
-tr.appendChild(checkbox);
-let td_uid = document.createElement('td');
-let text_uid = document.createTextNode( item.UID );
-td_uid.appendChild(text_uid );
-tr.appendChild( td_uid );
-
-let td_label = document.createElement('td');
-let text_label = document.createTextNode( item.label );
-td_label.appendChild( text_label );
-tr.appendChild( td_label );
-
-let td_thingType = document.createElement('td');
-td_thingType.appendChild( document.createTextNode(  item.thingTypeUID));
-tr.appendChild(td_thingType);
-
+thingList.forEach(function  (thing, index, array) {
+let tr  = ViewController.createTableRow(thing.UID, thing.UID, thing.label);
  document.getElementById(htmlElement).appendChild(tr);
 
- 
 }); // for each
 
 
@@ -53,28 +37,35 @@ tr.appendChild(td_thingType);
 thingList.forEach(function(thing,     i, array){
  console.log(thing.channels.length + " channels found for " + thing.UID );
     thing.channels.forEach(function(channel, index) {
-     let tr  = document.createElement('tr');
-    
-     let checkbox = document.createElement('input');
-  checkbox.setAttribute('id', channel.UID);
-    checkbox.setAttribute('type' , 'checkbox' );
-let td_checkbox = document.createElement('td');
-td_checkbox.appendChild(checkbox );
-tr.appendChild(td_checkbox);
 
-
-let channelUID =  document.createTextNode(channel.uid + ' ' + index);
-let td_channelUid = document.createElement('td');
-td_channelUid.appendChild(channelUID);
-tr.appendChild(td_channelUid); 
-
-
+       var td = ViewController.createTableRow(channel.uid, channel.uid);
  document.getElementById(htmlElement).appendChild(tr);
-    
+   
 }); // channel loop
 }); // thing loop
                 }); // getAllThings callback
-            } // addChannels
+            }, // addChannels
+
+            createTableRow : function(id) {
+                tr = document.createElement('tr');
+                
+                     let checkbox = document.createElement('input');
+                  checkbox.setAttribute('id', id);
+                    checkbox.setAttribute('type' , 'checkbox' );
+                let td_checkbox = document.createElement('td');
+                td_checkbox.appendChild(checkbox );
+                tr.appendChild(td_checkbox);
+                
+                for (let i = 1; i < arguments.length;i++){
+                let tdText =  document.createTextNode( arguments[i]);
+                let newTd = document.createElement('td');
+                newTd.appendChild(tdText);
+                tr.appendChild(newTd); 
+                }
+                
+                
+                return tr;
+                }
 }  // view controller
 
 $('iptExpertLevel').click(function() { 
