@@ -5,26 +5,33 @@ var EshCommunicator = {
     openHABServer : "http://localhost:8080/",
 
     getAllThings : function(callback) {
+this.getList('things', callback );
+            },
 
-        $.get(EshCommunicator.openHABServer + "rest/things", callback).done(function() {
+    getAllItems : function(callback){
+return getList('items',callback);
+},
 
-            alert("second success");
 
-        })
+getList : function(path, callback){
+        $.get(EshCommunicator.openHABServer + "rest/" + path)
+.done(function(data, status){
+console.log(data);
+var things = data;
+
+callback(things, status)
+} )
 
         .fail(function(data, statusText) {
-            console.log("Code: " + data.status);
+            console.log("Code: " + data);
             console.log("status: " + statusText);
-            alert("error");
-
+            console.log("ungeplant");
         })
 
         .always(function() {
-
-            alert("finished");
+//            console.log("always");
         });
 
-        console.log("done");
-    }
-
-}
+//        console.log("request created");
+    } // getListing
+}  // ViewController
