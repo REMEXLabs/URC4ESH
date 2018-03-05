@@ -13,12 +13,12 @@ import java.util.HashMap;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.CookieParam;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
@@ -70,12 +70,12 @@ public class Urc4eshService implements RESTResource {
     @Reference
     private ContextManager contextManager;
 
-    private HashMap<String, Communicator> clientMap;
+    private static HashMap<String, Communicator> clientMap = new HashMap<String, Communicator>();
 
     protected void activate() {
 
         System.out.println("Urc4esh Service has started");
-        clientMap = new HashMap<String, Communicator>();
+
     }
 
     protected void deactivate() {
@@ -115,23 +115,36 @@ public class Urc4eshService implements RESTResource {
      */
     @POST
     @Path(Urc4eshRestAapi.LOG_IN)
-    public Response login(@QueryParam("username") String username, @QueryParam("password") String password)
+    public Response login(@FormParam("username") String username, @FormParam("password") String password)
             throws URISyntaxException {
+        StringBuffer log = new StringBuffer();
+        try {
 
-        Communicator client = CommunicationManager.getClient(username, password);
-        if (client != null) {
+            // log.append("username: " + username + " password: " + password + "\n");
+            log.append("communicationManager: " + communicationManager);
+            Communicator client = communicationManager.getCommunicator(username, password);
+            log.append("client: " + client);
+            if (client != null) {
 
-            String sessionId = username;
+                String sessionId = username;
 
-            clientMap.put(sessionId, client);
-            NewCookie sessionCookie = new NewCookie("session", sessionId);
-            return Response.seeOther(new URI("/urc4esh/PickAnInterface" + ".html")).cookie(sessionCookie)
+                clientMap.put(sessionId, client);
+                NewCookie sessionCookie = new NewCookie("session", sessionId);
+                return Response.seeOther(new URI("/urc4esh/PickAnInterface" + ".html")).cookie(sessionCookie)
 
-                    .build();
+                        .build();
+            }
+            {
+                return Response.ok(log).build();
+                // return Response.status(403).build();
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+            logger.info("lusm: " + e);
+            return Response.ok(log.append(e.toString())).build();
         }
-        {
-            return Response.status(403).build();
-        }
+
     }
 
     @POST

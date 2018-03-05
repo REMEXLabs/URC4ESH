@@ -28,3 +28,4 @@ Californium.properties
 .classpath
 .project
 /bundles/urc4esh/org.eclipse.smarthome.urc4esh.rest/.settings
+.settings

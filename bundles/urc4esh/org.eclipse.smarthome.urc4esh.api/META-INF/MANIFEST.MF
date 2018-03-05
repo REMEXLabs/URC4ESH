@@ -5,4 +5,19 @@ Bundle-SymbolicName: org.eclipse.smarthome.urc4esh.api
 Bundle-Vendor: hdm-stuttgart.de
 Bundle-Version: 1.0.0.qualifier
 Export Package: org.eclipse.smarthome.urc4esh.api
-Export-Package: org.eclipse.smarthome.urc4esh.api, org.openape.api
+Export-Package: org.eclipse.smarthome.urc4esh.api,
+ org.openape.api,
+ org.openape.api.*,
+ org.openape.api.auth,
+ org.openape.api.environmentcontext,
+ org.openape.api.equipmentcontext,
+ org.openape.api.listing,
+ org.openape.api.taskcontext,
+ org.openape.api.usercontext
+Import-Package: com.fasterxml.jackson.annotation,
+ com.fasterxml.jackson.databind.node;version="2.4.5",
+ javax.ws.rs,
+ javax.ws.rs.client,
+ javax.ws.rs.ext,
+ org.codehaus.jackson.annotate,
+ org.codehaus.jackson.node

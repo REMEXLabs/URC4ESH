@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Pick an interface</title>
+<link rel="stylesheet" href="http://localhost:4040/css/formats.css">"
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script src="http://localhost:4040/js/ViewController.js"></script>
+<script src="http://localhost:4040/js/EshCommunicator.js"></script>
+<script>
+window.onload = function() {
+console.log("Hello world");
+    ViewController.addThings("tableEquipmentContext");
+    ViewController.addChannels("tableEnvironmentContext");
+    ViewController.addItems("tableTaskContext");
+ViewController.setButtonHandler();    }
+
+</script>
+</head>
+<body>
+
+<h1>Pick an interface</h1>
+<form>
+<input id=#iptExpertLevel type="radio" value="simple">Simple</input>
+<input id=iptExpertLevel type="radio" value="expert">Expert</input>
+</form>
+<div>
+<h2>Define your contexts</h2>
+<div id="divContextFrame">
+<div id="divEquipmentContext" class=".contextDefinition">
+Devices you want to control:
+<form id="formEquipmentContext">
+<table         id="tableEquipmentContext"> </table>
+</form>
+</div>
+
+
+<div id="divEnvironmentContext" class=".contextDefinition">
+Environmental conditions to consider:
+<form id="formEnvironmentContext">
+<table id='tableEnvironmentContext'></table>
+</form>
+</div>
+
+<div id="divTaskContext" class=".contextDefinition">
+Task definitions:
+<form id="formTaskContext">
+<table id="tableTaskContext"></table>
+</form>
+</div>
+</div>
+</div>
+
+<div>
+<form>
+<button id='#btnCreateContexts'>Request Interfaces</button>
+</form>
+</div>
+<h2>Select an interface</h2>
+
+</body>
+</html>
