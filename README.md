@@ -13,8 +13,8 @@ URC4ESH will show how the main concepts of URC can be transfered to mainstream p
 OpenAPE is an infrastructure to exchange context information across platforms to provide information that are required to adjust user interfaces to the users individual neds and preferences. 
 
 ## Further information
-* [installation guidelines](installation)
-* [Components](components)
+* [installation guidelines](wiki/Installation-guideline)
+* [Components](wiki/components)
 
 ## Licence and Copyright 
 
