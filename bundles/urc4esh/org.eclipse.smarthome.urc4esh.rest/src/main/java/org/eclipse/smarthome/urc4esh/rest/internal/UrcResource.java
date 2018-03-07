@@ -22,9 +22,11 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import org.eclipse.smarthome.core.auth.Role;
+import org.eclipse.smarthome.core.storage.StorageService;
 import org.eclipse.smarthome.io.rest.RESTResource;
 import org.eclipse.smarthome.urc4esh.api.CommunicationManager;
 import org.eclipse.smarthome.urc4esh.api.ContextManager;
+import org.eclipse.smarthome.urc4esh.api.EnvironmentContextDefinition;
 import org.eclipse.smarthome.urc4esh.api.UiList;
 import org.eclipse.smarthome.urc4esh.rest.REST_API;
 import org.osgi.service.component.annotations.Reference;
@@ -64,6 +66,8 @@ public class UrcResource implements RESTResource {
     @Context
     // private HttpServletResponse response;
 
+    StorageService storageService;
+
     @Reference
     private ContextManager contextManager;
 
@@ -96,4 +100,9 @@ public class UrcResource implements RESTResource {
         return Response.ok(responseObject).build();
     }
 
+    @POST
+    @Path(REST_API.ENVIRONMENT_CONTEXT_DEFINITION)
+    public Response createEnvironmentContextDefinition(EnvironmentContextDefinition envCtxDef) {
+        Object storage = storageService.getStorage(ENV_CTX_DEF_STORAGE));
+    }
 }

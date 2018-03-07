@@ -17,7 +17,7 @@ return this.getList('items',callback);
 getList : function(path, callback){
         $.get(EshCommunicator.openHABServer + "rest/" + path)
 .done(function(data, status){
-console.log(data);
+//console.log(data);
 var things = data;
 
 callback(things, status)

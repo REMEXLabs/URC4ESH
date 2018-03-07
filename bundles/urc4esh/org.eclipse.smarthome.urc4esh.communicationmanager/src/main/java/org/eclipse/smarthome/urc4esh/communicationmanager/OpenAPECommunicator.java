@@ -32,6 +32,8 @@ import org.openape.api.usercontext.UserContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
  * @author Lukas Smirek
  */
@@ -214,7 +216,17 @@ public class OpenAPECommunicator implements Communicator {
 
         final int status = response.getStatus();
         checkResponse(response);
-        final String output = response.readEntity(TokenResponse.class).getAccessToken();
+        String responseString = response.readEntity(String.class);
+        ObjectMapper mapper = new ObjectMapper();
+        TokenResponse tokenResponse = null;
+        try {
+            tokenResponse = mapper.readValue(responseString, TokenResponse.class);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        final String output = tokenResponse.getAccessToken();
 
         return output;
 

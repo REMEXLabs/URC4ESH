@@ -1,10 +1,13 @@
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Pick an interface</title>
-<link rel="stylesheet" href="http://localhost:4040/css/formats.css">"
+<link rel="stylesheet" href="http://localhost:4040/css/formats.css">
+
 <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script src="http://localhost:4040/js/api.js"></script>
 <script src="http://localhost:4040/js/ViewController.js"></script>
 <script src="http://localhost:4040/js/EshCommunicator.js"></script>
 <script>
@@ -21,13 +24,13 @@ ViewController.setButtonHandler();    }
 
 <h1>Pick an interface</h1>
 <form>
-<input id=#iptExpertLevel type="radio" value="simple">Simple</input>
-<input id=iptExpertLevel type="radio" value="expert">Expert</input>
+<input id="iptLevelSimpel" class="expertLevel" type="radio" value="simpel" name="rgExpertLevel"  >Simple</input>
+<input id="iptLevelExpert" class="expertLevel"  type="radio" value="expert" name="rgExpertLevel" >Expert</input>
 </form>
 <div>
 <h2>Define your contexts</h2>
 <div id="divContextFrame">
-<div id="divEquipmentContext" class=".contextDefinition">
+<div id="divEquipmentContext" class="contextDefinition">
 Devices you want to control:
 <form id="formEquipmentContext">
 <table         id="tableEquipmentContext"> </table>
@@ -35,14 +38,14 @@ Devices you want to control:
 </div>
 
 
-<div id="divEnvironmentContext" class=".contextDefinition">
+<div id="divEnvironmentContext" class="contextDefinition">
 Environmental conditions to consider:
 <form id="formEnvironmentContext">
 <table id='tableEnvironmentContext'></table>
 </form>
 </div>
 
-<div id="divTaskContext" class=".contextDefinition">
+<div id="divTaskContext" class="contextDefinition">
 Task definitions:
 <form id="formTaskContext">
 <table id="tableTaskContext"></table>
@@ -53,7 +56,7 @@ Task definitions:
 
 <div>
 <form>
-<button id='#btnCreateContexts'>Request Interfaces</button>
+<button id='btnCreateContexts'>Request Interfaces</button>
 </form>
 </div>
 <h2>Select an interface</h2>

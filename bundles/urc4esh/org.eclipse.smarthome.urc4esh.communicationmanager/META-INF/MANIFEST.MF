@@ -14,9 +14,8 @@ Import-Package:
  javax.ws.rs.client,
  javax.ws.rs.core,
  javax.ws.rs.ext,
-  org.glassfish.jersey.client,
- org.glassfish.jersey.media.sse,
-  org.apache.commons.lang,
+ javax.xml.bind,
+ org.apache.commons.lang,
  org.eclipse.jdt.annotation;resolution:=optional,
  org.eclipse.smarthome.config.core,
  org.eclipse.smarthome.config.core.dto,
@@ -56,6 +55,9 @@ Import-Package:
  org.eclipse.smarthome.io.rest.core.persistence,
  org.eclipse.smarthome.io.rest.core.thing,
  org.eclipse.smarthome.urc4esh.api,
+ org.glassfish.jersey.client,
+ org.glassfish.jersey.media.sse,
+ com.fasterxml.jackson.databind,
  org.openape.api,
  org.openape.api.auth,
  org.openape.api.environmentcontext,
@@ -66,5 +68,5 @@ Import-Package:
  org.osgi.framework,
  org.osgi.service.cm,
  org.osgi.service.component,
- org.slf4j, javax.xml.bind
+ org.slf4j
 Service-Component: OSGI-INF/*.xml

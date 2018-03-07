@@ -2,13 +2,14 @@
  * 
  */
 var ViewController = {
+    targetClass : 'targetCtx',
 addItems : function(htmlElement){
     
 EshCommunicator.getAllItems(function(itemList){
-console.log("Found: " + itemList.length );
+//console.log("Found: " + itemList.length );
     itemList.forEach(function(item){
         if (item.type !== "Group" ){
-        let td = ViewController.createTableRow(item.name, item.name, item.label);
+        let td = ViewController.createTableRow(item.name,"taskCtx", item.name, item.label);
     document.getElementById(htmlElement).appendChild(td);
         }
 });  // for each
@@ -16,29 +17,29 @@ console.log("Found: " + itemList.length );
 },
 
     addThings : function(htmlElement) {
-// $(htmlElement).append($( "<tr> <td> Thing UID </td></tr>") );
+
         EshCommunicator.getAllThings(function(thingList , status) {
 
 //console.log("EL: " +  $(htmlElement) )
-//$("body").append( "<p> Hello World </p>" );
+
 thingList.forEach(function  (thing, index, array) {
-let tr  = ViewController.createTableRow(thing.UID, thing.UID, thing.label);
+let tr  = ViewController.createTableRow(thing.UID, ViewController.targetClass ,  thing.UID, thing.label);
  document.getElementById(htmlElement).appendChild(tr);
 
 }); // for each
+getTargets();
+}); // getAllThings callback
 
-
-}); // getAllThings
             },  // AddThings
 
             addChannels : function(htmlElement){
                 EshCommunicator.getAllThings(function(thingList){
-                    console.log(thingList.length + ' things found');
+//                     console.log(thingList.length + ' things found');
 thingList.forEach(function(thing,     i, array){
- console.log(thing.channels.length + " channels found for " + thing.UID );
+ // console.log(thing.channels.length + " channels found for " + thing.UID );
     thing.channels.forEach(function(channel, index) {
 
-       var td = ViewController.createTableRow(channel.uid, channel.uid);
+       var td = ViewController.createTableRow(channel.uid, "envCtx", channel.uid);
  document.getElementById(htmlElement).appendChild(tr);
    
 }); // channel loop
@@ -46,28 +47,52 @@ thingList.forEach(function(thing,     i, array){
                 }); // getAllThings callback
             }, // addChannels
 
-            createTableRow : function(id) {
-                tr = document.createElement('tr');
+            createTableRow : function(id, cl) {
+                                tr = document.createElement('tr');
                 
                      let checkbox = document.createElement('input');
-                  checkbox.setAttribute('id', id);
+                  //checkbox.setAttribute('id', id);
                     checkbox.setAttribute('type' , 'checkbox' );
-                let td_checkbox = document.createElement('td');
+                    checkbox.classList.add( cl);
+                                    let td_checkbox = document.createElement('td');
                 td_checkbox.appendChild(checkbox );
                 tr.appendChild(td_checkbox);
                 
-                for (let i = 1; i < arguments.length;i++){
+                for (let i = 2; i < arguments.length;i++){
                 let tdText =  document.createTextNode( arguments[i]);
                 let newTd = document.createElement('td');
                 newTd.appendChild(tdText);
                 tr.appendChild(newTd); 
                 }
-                
-                
+                                
                 return tr;
-                }
+                                },
+
+setButtonHandler : function() {
+
+        $("input[name='rgExpertLevel']").change(function(){
+console.log("klick expert level");
+        });
+
+$('#btnCreateContexts').click( function(){
+
+    
+
+});
+
+getTargets();
+} // setButtonHandler
 }  // view controller
 
-$('iptExpertLevel').click(function() { 
-console.log("klick expert level");
-});
+getTargets = function() {
+    console.log(" targets: " + $("." + ViewController.targetClass).length);
+    var taskCtxDef = []; 
+    var i = 0;
+    $("." + ViewController.targetClass).each(function(index, item){
+        if (item.checked){
+taskCtxDef[i][0] = URC_VOC.target;
+taskCtxDef[i][1] = URC4ESH_VOC.getTargetUrl(item.id);
+i++;
+}
+    });
+}
