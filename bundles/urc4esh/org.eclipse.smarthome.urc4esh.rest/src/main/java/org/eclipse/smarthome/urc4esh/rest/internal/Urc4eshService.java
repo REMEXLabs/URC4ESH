@@ -12,6 +12,7 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 
 import javax.annotation.security.RolesAllowed;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.CookieParam;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -148,8 +149,10 @@ public class Urc4eshService implements RESTResource {
     }
 
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
     @Path(Urc4eshRestAapi.UiList)
-    public Response getUiList(@HeaderParam("session") String sessionId, @CookieParam("session") String cookieSession) {
+    public Response getUiList(@HeaderParam("session") String sessionId, @CookieParam("session") String cookieSession,
+            String[][] s) {
         Object responseObject = new String("your Session: " + sessionId + "\n your cooky:" + cookieSession);
         return Response.ok(responseObject).build();
     }

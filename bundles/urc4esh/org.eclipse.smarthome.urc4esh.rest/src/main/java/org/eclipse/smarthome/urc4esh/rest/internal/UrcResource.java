@@ -7,15 +7,12 @@
  */
 package org.eclipse.smarthome.urc4esh.rest.internal;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
 import javax.annotation.security.RolesAllowed;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -27,6 +24,8 @@ import org.eclipse.smarthome.io.rest.RESTResource;
 import org.eclipse.smarthome.urc4esh.api.CommunicationManager;
 import org.eclipse.smarthome.urc4esh.api.ContextManager;
 import org.eclipse.smarthome.urc4esh.api.EnvironmentContextDefinition;
+import org.eclipse.smarthome.urc4esh.api.EquipmentContextDefinition;
+import org.eclipse.smarthome.urc4esh.api.TaskContextDefinition;
 import org.eclipse.smarthome.urc4esh.api.UiList;
 import org.eclipse.smarthome.urc4esh.rest.REST_API;
 import org.osgi.service.component.annotations.Reference;
@@ -70,6 +69,15 @@ public class UrcResource implements RESTResource {
 
     @Reference
     private ContextManager contextManager;
+    private CommunicationManager communicationManager;
+
+    public CommunicationManager getCommunicationManager(CommunicationManager communicationManager) {
+        this.communicationManager = null;
+    }
+
+    public void setCommunicationManager(CommunicationManager communicationManager) {
+        this.communicationManager = communicationManager;
+    }
 
     protected void activate() {
 
@@ -91,18 +99,62 @@ public class UrcResource implements RESTResource {
     }
 
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path(REST_API.UI_LIST)
-    public Response requestUiList() {
+    public Response requestUiList(UiListRequest uiListRequest, String clientId) {
 
         UiList uiList;
+        communicationManager.requestUiList(uiListRequest, clientId);
         Object responseObject = new String("hello world");
         return Response.ok(responseObject).build();
     }
 
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
     @Path(REST_API.ENVIRONMENT_CONTEXT_DEFINITION)
-    public Response createEnvironmentContextDefinition(EnvironmentContextDefinition envCtxDef) {
-        Object storage = storageService.getStorage(ENV_CTX_DEF_STORAGE));
+    public Response createEnvironmentContextDefinition(String s) {
+
+        EnvironmentContextDefinition envCtxDef = new EnvironmentContextDefinition();
+        String[] ss = { s };
+        envCtxDef.setChannelUids(ss);
+
+        String id = contextManager.createEnvironmentContextDefinition(envCtxDef);
+        return Response.ok(id).build();
+    }
+
+    @GET
+    @Path(REST_API.ENVIRONMENT_CONTEXT_DEFINITION)
+    public Response test() {
+        return Response.ok("envCtx").build();
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path(REST_API.EQUIPMENT_CONTEXT_DEFINITION)
+    public Response createEquipmentContextDefinition(String[] s) {
+        EquipmentContextDefinition equCtxDef = new EquipmentContextDefinition();
+        equCtxDef.setChannelUids(s);
+        String id = contextManager.createEquipmentcontextDefinition(equCtxDef);
+        return Response.ok(id).build();
+    }
+
+    @POST
+    @Path(REST_API.TASK_CONTEXT_DEFINITIONS)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response createTaskContextDefinition(String[][] s) {
+        TaskContextDefinition taskCtxDef = new TaskContextDefinition();
+        taskCtxDef.setDefinitions(s);
+
+        String id = contextManager.createTaskContextDefinition(taskCtxDef);
+        return Response.ok(id).build();
+    }
+
+    public void setContextManager(ContextManager contextManager) {
+        this.contextManager = contextManager;
+    }
+
+    public void removeContextManager(ContextManager contextManager) {
+        this.contextManager = null;
     }
 }
