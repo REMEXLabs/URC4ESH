@@ -10,6 +10,7 @@
 -->
 <scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="org.eclipse.smarthome.urc4esh.rest">
   <reference bind="setContextManager" cardinality="0..1" interface="org.eclipse.smarthome.urc4esh.api.ContextManager" name="bla" policy="dynamic" unbind="removeContextManager"/>
+  <reference bind="setCommunicationManager" cardinality="1..1" interface="org.eclipse.smarthome.urc4esh.api.CommunicationManager" name="bla" policy="dynamic" unbind="removeCommunicationManager"/>
    <implementation class="org.eclipse.smarthome.urc4esh.rest.internal.UrcResource"/>
    <service>
             <provide interface="org.eclipse.smarthome.io.rest.RESTResource"/>
