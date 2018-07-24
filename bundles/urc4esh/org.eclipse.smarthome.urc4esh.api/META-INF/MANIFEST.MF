@@ -4,11 +4,13 @@ Bundle-Name: Api
 Bundle-SymbolicName: org.eclipse.smarthome.urc4esh.api
 Bundle-Vendor: hdm-stuttgart.de
 Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .,lib/openape-api.jar
 Export Package: org.eclipse.smarthome.urc4esh.api
 Export-Package: org.eclipse.smarthome.urc4esh.api,
  org.openape.api,
  org.openape.api.*,
  org.openape.api.auth,
+ org.openape.api.databaseObjectBase,
  org.openape.api.environmentcontext,
  org.openape.api.equipmentcontext,
  org.openape.api.listing,
