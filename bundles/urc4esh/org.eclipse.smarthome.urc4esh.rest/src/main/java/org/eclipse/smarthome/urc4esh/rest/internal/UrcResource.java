@@ -9,6 +9,7 @@ package org.eclipse.smarthome.urc4esh.rest.internal;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.CookieParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -27,6 +28,7 @@ import org.eclipse.smarthome.urc4esh.api.EnvironmentContextDefinition;
 import org.eclipse.smarthome.urc4esh.api.EquipmentContextDefinition;
 import org.eclipse.smarthome.urc4esh.api.TaskContextDefinition;
 import org.eclipse.smarthome.urc4esh.api.UiList;
+import org.eclipse.smarthome.urc4esh.api.UiListRequest;
 import org.eclipse.smarthome.urc4esh.rest.REST_API;
 import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
@@ -71,14 +73,6 @@ public class UrcResource implements RESTResource {
     private ContextManager contextManager;
     private CommunicationManager communicationManager;
 
-    public CommunicationManager getCommunicationManager(CommunicationManager communicationManager) {
-        this.communicationManager = null;
-    }
-
-    public void setCommunicationManager(CommunicationManager communicationManager) {
-        this.communicationManager = communicationManager;
-    }
-
     protected void activate() {
 
         System.out.println("Hello World");
@@ -102,12 +96,17 @@ public class UrcResource implements RESTResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path(REST_API.UI_LIST)
-    public Response requestUiList(UiListRequest uiListRequest, String clientId) {
+    public Response requestUiList(UiListRequest uiListRequest, @CookieParam("session") String clientId) {
 
-        UiList uiList;
-        communicationManager.requestUiList(uiListRequest, clientId);
-        Object responseObject = new String("hello world");
-        return Response.ok(responseObject).build();
+        UiList uiList = communicationManager.requestUiList(uiListRequest, clientId);
+
+        return Response.ok(uiList).build();
+    }
+
+    @GET
+    @Path(REST_API.UI_LIST)
+    public Response getBla() {
+        return Response.ok().build();
     }
 
     @POST
@@ -156,5 +155,14 @@ public class UrcResource implements RESTResource {
 
     public void removeContextManager(ContextManager contextManager) {
         this.contextManager = null;
+    }
+
+    public void setCommunicationManager(CommunicationManager communicationManager) {
+        logger.info("lusm setCommunicationManager");
+        this.communicationManager = communicationManager;
+    }
+
+    public void removeCommunicationManager(CommunicationManager communicationManager) {
+        this.communicationManager = null;
     }
 }

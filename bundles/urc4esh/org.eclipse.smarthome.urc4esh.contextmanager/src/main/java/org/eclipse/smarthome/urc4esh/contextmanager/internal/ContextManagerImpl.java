@@ -7,7 +7,10 @@ import org.eclipse.smarthome.urc4esh.api.ContextManager;
 import org.eclipse.smarthome.urc4esh.api.EnvironmentContextDefinition;
 import org.eclipse.smarthome.urc4esh.api.EquipmentContextDefinition;
 import org.eclipse.smarthome.urc4esh.api.TaskContextDefinition;
+import org.openape.api.OpenApeTerms;
 import org.openape.api.environmentcontext.EnvironmentContext;
+
+import jdk.nashorn.internal.runtime.Property;
 
 public class ContextManagerImpl implements ContextManager {
 
@@ -54,7 +57,7 @@ public class ContextManagerImpl implements ContextManager {
     }
 
     @Override
-    public EnvironmentContextDefinition getEnvironmentContextDEfinition(String id) {
+    public EnvironmentContextDefinition getEnvironmentContextDefinition(String id) {
         return (EnvironmentContextDefinition) envCtxDefMap.get(id);
     }
 
@@ -70,6 +73,18 @@ public class ContextManagerImpl implements ContextManager {
         }
         return envCtx;
 
+    }
+
+    @Override
+    public TaskContext createTaskContextFromTaskContextDefinition(String id) {
+        TaskContext taskCtx = new TaskContext();
+        String[][] s = getTaskContextDefinition(id).getDefinitions();
+        for (int i = 0; i < s.length; i++) {
+            if (s[i][0].equals(OpenApeTerms.target)) {
+                taskCtx.addProperty(new Property(OpenApeTerms.target, ""));
+            }
+        }
+        return taskCtx;
     }
 
 }

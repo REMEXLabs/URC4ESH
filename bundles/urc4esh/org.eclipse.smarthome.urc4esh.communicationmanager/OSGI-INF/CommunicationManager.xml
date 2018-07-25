@@ -3,5 +3,6 @@
    <service>
       <provide interface="org.eclipse.smarthome.urc4esh.api.CommunicationManager"/>
    </service>
+  <reference bind="setContextManager" cardinality="0..1" interface="org.eclipse.smarthome.urc4esh.api.ContextManager" name="bla" policy="dynamic" unbind="removeContextManager"/>
    <implementation class="org.eclipse.smarthome.urc4esh.communicationmanager.CommunicationManagerImpl"/>
 </scr:component>

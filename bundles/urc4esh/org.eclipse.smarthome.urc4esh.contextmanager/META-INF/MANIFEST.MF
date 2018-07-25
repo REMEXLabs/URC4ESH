@@ -4,5 +4,8 @@ Bundle-Name: Contextmanager
 Bundle-SymbolicName: org.eclipse.smarthome.urc4esh.contextmanager
 Bundle-Version: 0.9.0.qualifier
 Import-Package: org.eclipse.smarthome.urc4esh.api,
- org.openape.api.environmentcontext
+ org.openape.api,
+ org.openape.api.databaseObjectBase,
+ org.openape.api.environmentcontext,
+ org.openape.api.taskcontext
 Service-Component: OSGI-INF/*.xml

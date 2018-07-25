@@ -2,8 +2,6 @@ package org.eclipse.smarthome.urc4esh.api;
 
 import java.util.LinkedList;
 
-import org.openape.api.UiDescriptor;
-
 public class UiList {
     private LinkedList<UiDescriptor> uis;
 
